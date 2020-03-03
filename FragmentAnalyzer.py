@@ -2,7 +2,7 @@ import re
 fragment_list = []
 val_list = []
 lower = 100
-upper = 200
+upper = 500
 f_name = 'C:\\Users\\mt200\\OneDrive\\Desktop\\School\\Concordia\\Genome Foundry\\FragmentAnalyzerOutput.csv'
 with open(f_name) as f:
     for line in f:
@@ -12,7 +12,7 @@ with open(f_name) as f:
                 fragment_list.append(val_list.copy())
                 # print(valList)
             val_list.clear()
-            valList = [line.split(',')[0]]
+            val_list = [line.split(',')[0]]
         # check for a peak id and grab size value
         elif re.search("^[0-9]+", line) is not None:
             val = int(line.split(',')[1].split(' ')[0])
