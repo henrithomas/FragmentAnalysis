@@ -1,28 +1,35 @@
 import re
-fragment_list = []
+
+fragment_list_true = []
+fragment_list_false = []
 val_list = []
 lower = 100
 upper = 500
-f_name = 'C:\\Users\\mt200\\OneDrive\\Desktop\\School\\Concordia\\Genome Foundry\\FragmentAnalyzerOutput.csv'
+concentration = 50.0
+tolerance = 0.0
+f_name = 'C:\\Users\\henri\\OneDrive\\Desktop\\School\\Concordia\\Genome Foundry\\FragmentAnalyzerOutput.csv'
+
 with open(f_name) as f:
     for line in f:
         # check for a cell id
         if re.search("^[A-Z][0-9]+", line) is not None:
-            if val_list:
-                fragment_list.append(val_list.copy())
-                # print(valList)
-            val_list.clear()
-            val_list = [line.split(',')[0]]
-        # check for a peak id and grab size value
+            split_line = line.split(',')
+            cell = split_line[0]
+            plasmid = split_line[1]
+            split_line.clear()
+        # check for a peak id
         elif re.search("^[0-9]+", line) is not None:
-            val = int(line.split(',')[1].split(' ')[0])
-            val_list.append(val)
-    fragment_list.append(val_list.copy())
+            val_list = [x.split(' ')[0] for x in line.split(',')]
+            # [cell name, plasmid, peakId, size (bp), % conc]
+            if lower <= int(val_list[1]) <= upper and float(val_list[2]) > concentration:
+                fragment_list_true.append([cell, plasmid, val_list[0], val_list[1], val_list[2]])
+            else:
+                fragment_list_false.append([cell, plasmid, val_list[0], val_list[1], val_list[2]])
+            val_list.clear()
 
-for lst in fragment_list:
-    frags = ', '.join(['peak ' + str(i + 1) + ': ' + str(x)
-                       for i, x in enumerate(lst[1:]) if lower <= x <= upper])
-    if frags:
-        cell_name = lst[0]
-        print(cell_name)
-        print('\t' + frags + '\n')
+print('TRUE')
+for lt in fragment_list_true:
+    print(lt)
+print('\nFALSE')
+for lf in fragment_list_false:
+    print(lf)
