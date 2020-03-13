@@ -89,9 +89,9 @@ if __name__ == "__main__":
     bands = [200, 400]
     threshold = 10.0
     tolerance = 10
-    file_in = 'C:\\Users\\henri\\OneDrive\\Desktop\\School\\Concordia\\Genome Foundry\\FragmentAnalyzerInput.csv'
-    file_out_true = 'C:\\Users\\henri\\OneDrive\\Desktop\\School\\Concordia\\Genome Foundry\\FragmentAnalysisTrue.csv'
-    file_out_false = 'C:\\Users\\henri\\OneDrive\\Desktop\\School\\Concordia\\Genome Foundry\\FragmentAnalysisFalse.csv'
+    file_in = 'path\\to\\FragmentAnalyzerInput.csv'
+    file_out_true = 'path\\to\\FragmentAnalysisTrue.csv'
+    file_out_false = 'path\\to\\FragmentAnalysisFalse.csv'
 
     analyzer = FragmentAnalyzer(bands, threshold, tolerance, file_in)
     analyzer.main()
